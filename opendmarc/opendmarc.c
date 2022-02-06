@@ -2163,7 +2163,11 @@ mlfi_eom(SMFICTX *ctx)
 		}
 
 		if (conf->conf_reqfrom)
+		{
+			status = dmarcf_setreply(ctx, DMARC_REJECT_SMTP, DMARC_REJECT_ESC,
+				"RFC5322 requirement error: missing From field");
 			return SMFIS_REJECT;
+		}
 		else
 			return SMFIS_ACCEPT;
 	}
